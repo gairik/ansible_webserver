@@ -1,0 +1,21 @@
+---
+- name:
+  hosts:
+  - web
+  tasks:
+ 
+  - name:
+    yum:
+      name: httpd
+      state: latest
+ 
+  - name: Restart service httpd, in all cases
+    service:
+      name: httpd
+      state: restarted
+ 
+  - firewalld:
+      service: http
+      permanent: yes
+      state: enabled
+      immediate: yes

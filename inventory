@@ -1,0 +1,11 @@
+servera alias=servera.lab.example.com
+serverb alias=serverb.lab.example.com
+serverc alias=serverc.lab.example.com
+serverd alias=serverd.lab.example.com
+
+[web]
+server[a:b]
+
+[dev]
+server[c:d]
+
