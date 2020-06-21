@@ -1,0 +1,5 @@
+---
+pkg: httpd
+fw: http
+srv: httpd
+index: /var/www/html/index.html
