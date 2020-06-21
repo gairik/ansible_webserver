@@ -1,0 +1,30 @@
+---
+- name:
+  hosts:
+    - servera
+  tasks:
+  - name:
+    block:
+      - name:
+        yum:
+          name: "{{pkg}}"
+          state: present
+      - service:
+          service: "{{srv}}"
+          state: started
+          enabled: true
+      - firewalld:
+          state: enabled
+          service: "{{fw}}"
+          permanent: yes
+          immediate: true
+        notify: restart_service
+      - template:
+          src: ./index.j2
+          dest: /var/www/html/index.html
+  handlers:
+   - name: restart_service
+     service:               
+       service: "{{srv}}"   
+       state: started       
+       enabled: true 
