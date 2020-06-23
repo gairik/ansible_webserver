@@ -1,0 +1,31 @@
+---
+- hosts: servera
+  tasks: 
+    - yum:
+        name: httpd
+        state: latest
+    - firewalld:
+        service : http
+        immediate: true
+        state: enabled
+        permanent: yes
+    - template:
+        src: ./index.j2
+        dest: /var/www/html/index.html
+      notify: 
+        - restart_service 
+        - fetch_index
+            
+  
+  handlers:
+  - name: restart_service
+    service: 
+      service: httpd
+      state: started
+      enabled: true
+      
+  - name: fetch_index
+    fetch:         
+      src: /var/www/html/index.html
+      dest: ./index.html
+      flat: yes
